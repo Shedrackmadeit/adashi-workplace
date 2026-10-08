@@ -24,7 +24,8 @@ void main() {
 
   testWidgets('demo contribution needs explicit confirmation', (tester) async {
     await tester.pumpWidget(const AdashiApp());
-    await tester.scrollUntilVisible(find.text('Staff Monthly Circle'), 150);
+    await tester.drag(find.byType(ListView), const Offset(0, -300));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Staff Monthly Circle'));
     await tester.pumpAndSettle();
     final report = find.text('Report demo contribution');

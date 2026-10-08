@@ -1,57 +1,59 @@
 # Adashi Workplace
 
-A proposed B2B application that helps organizations introduce voluntary Adashi groups to employees and helps participants manage contributions and rotating payouts.
+Flutter starter for voluntary workplace Adashi groups. An organization introduces the platform; employees discover circles, agree to rules, contribute a fixed amount each month, and receive the pooled amount in an agreed rotation.
 
-## The problem
+## Current demo
 
-Employees may not know which contribution groups are available or may hesitate to join because the rules, payment records, and payout schedule are unclear.
+- Employee dashboard with monthly commitment and active groups.
+- Group discovery and details, capacity, projected payout, and sample rules.
+- Rule acceptance before a join request; requests remain pending organizer approval.
+- Contribution reporting with a confirmation dialog. A report is not a verified payment.
+- Contribution records and a six-month sample payout calendar.
+- Responsive content width and Material 3 navigation.
 
-## How Adashi works
+All organizations, people, dates, and financial records are fictional. State is kept in memory and resets on restart. No authentication, server, payment processing, payroll deductions, or real reminders are connected. The optional demo reference is not persisted. Never enter real financial data into this demo.
 
-A group agrees to contribute a fixed amount weekly or monthly. Each round, the collected lump sum goes to one member. The rotation continues until every participant has received their turn. Members continue contributing after receiving their payout until the cycle is complete.
+## Run the web demo
 
-Example: 10 employees contribute NGN 20,000 each month. If everyone pays, one employee receives NGN 200,000 each month over a 10-month cycle.
+Install the stable Flutter SDK, then:
 
-## Proposed users
+```sh
+git clone https://github.com/Shedrackmadeit/adashi-workplace.git
+cd adashi-workplace
+git checkout feature/flutter-starter
+flutter pub get
+flutter run -d chrome
+```
 
-- Organization administrator: introduces the platform, invites employees, and verifies eligibility.
-- Group organizer: proposes group rules, manages membership, and tracks contributions and payouts.
-- Employee: discovers workplace groups, joins voluntarily, accepts the rules, and follows their contribution and payout schedule.
+The web entry point is included. To generate native platform scaffolding when ready:
 
-Organization participation does not automatically mean it guarantees payouts.
+```sh
+flutter create --platforms=android,ios --project-name adashi_workplace .
+```
 
-## Initial product scope
+Review generated changes before committing; iOS builds require macOS and Xcode.
 
-1. Organization accounts and employee invitations.
-2. Private groups visible to eligible employees within their organization.
-3. Group details: contribution amount, frequency, capacity, start date, and payout order.
-4. Join requests and organizer approval.
-5. Recorded member acceptance of group rules before a cycle starts.
-6. Contribution records, payment confirmation, and reminders.
-7. Payout schedules and recipient confirmation.
-8. A history of changes to rules, payments, and payouts.
+## Checks
 
-## Decisions to resolve before implementation
+```sh
+flutter analyze
+flutter test
+flutter build web --release
+```
 
-- Whether payments happen outside the app, through a payment partner, or through payroll.
-- Who confirms payments and what evidence is required.
-- How the payout order is agreed and whether changes require member approval.
-- What happens when payments are late or incomplete.
-- How remaining obligations are handled when an employee leaves the organization.
-- Which records members, organizers, and organization administrators can access.
-- Employer subscription pricing and the technology stack.
+GitHub Actions runs these on pull requests and main pushes, and uploads the web build as an artifact. This does not publish a live website. Local verification could not run in the originating Codex session because its process helper failed; use the Actions result as the build evidence.
 
-Payroll deductions, custody of funds, and guaranteed payouts are not assumed features. These require separate product decisions before implementation.
+## Code layout
 
-## Trust and privacy principles
+- `lib/main.dart`: dashboard, navigation, group details, and demo interactions.
+- `lib/models.dart`: sample groups and guarded join/report transitions.
+- `test/`: membership eligibility, duplicate report prevention, and UI flows.
+- `web/`: web entry point.
 
-- Participation is voluntary.
-- Workplace verification provides accountability but does not guarantee future payment.
-- Members can see the rules, schedule, and relevant group records before joining.
-- Organization administrators receive only information needed for their role.
-- Financial records and access permissions remain separated between organizations.
-- Rule changes and payment corrections retain an audit history.
+## Product boundaries
 
-## Repository status
+Participation is voluntary. Employment verification cannot guarantee payment. A member must continue contributing after their turn until the cycle ends. The projected payout assumes all places are filled and contributions collected.
 
-This repository currently contains the product outline. Application code, the technology stack, and deployment configuration have not been created yet.
+Before real use, implement authentication, organization isolation, durable records, role-based access, organizer approval and receipt verification, agreed payout orders, late-payment rules, and employee-exit handling. Decide whether payments remain outside the app or use a payment partner or payroll before integrating money movement.
+
+This hand-written Flutter application is developed separately from the FlutterFlow visual project. It has not been connected or synchronized with FlutterFlow.

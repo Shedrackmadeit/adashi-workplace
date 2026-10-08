@@ -7,11 +7,13 @@ void main() {
     await tester.pumpWidget(const AdashiApp());
     await tester.tap(find.text('Groups'));
     await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('New Year Goals'), 150);
     await tester.tap(find.text('New Year Goals'));
     await tester.pumpAndSettle();
     final request = find.widgetWithText(FilledButton, 'Request to join');
+    await tester.scrollUntilVisible(request, 150);
     expect(tester.widget<FilledButton>(request).onPressed, isNull);
-    await tester.ensureVisible(find.byType(CheckboxListTile));
+    await tester.scrollUntilVisible(find.byType(CheckboxListTile), -100);
     await tester.tap(find.byType(CheckboxListTile));
     await tester.pumpAndSettle();
     await tester.ensureVisible(request);
@@ -22,10 +24,11 @@ void main() {
 
   testWidgets('demo contribution needs explicit confirmation', (tester) async {
     await tester.pumpWidget(const AdashiApp());
+    await tester.scrollUntilVisible(find.text('Staff Monthly Circle'), 150);
     await tester.tap(find.text('Staff Monthly Circle'));
     await tester.pumpAndSettle();
     final report = find.text('Report demo contribution');
-    await tester.ensureVisible(report);
+    await tester.scrollUntilVisible(report, 150);
     await tester.tap(report);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Cancel'));

@@ -20,7 +20,6 @@ Install the stable Flutter SDK, then:
 ```sh
 git clone https://github.com/Shedrackmadeit/adashi-workplace.git
 cd adashi-workplace
-git checkout feature/flutter-starter
 flutter pub get
 flutter run -d chrome
 ```
@@ -57,3 +56,15 @@ Participation is voluntary. Employment verification cannot guarantee payment. A 
 Before real use, implement authentication, organization isolation, durable records, role-based access, organizer approval and receipt verification, agreed payout orders, late-payment rules, and employee-exit handling. Decide whether payments remain outside the app or use a payment partner or payroll before integrating money movement.
 
 This hand-written Flutter application is developed separately from the FlutterFlow visual project. It has not been connected or synchronized with FlutterFlow.
+
+## Publish a browser preview
+
+The manual workflow `.github/workflows/deploy-pages.yml` builds, tests, and deploys the main branch using GitHub Pages. It is prepared but has not been deployed.
+
+1. In repository Settings > Pages, select GitHub Actions as the build source.
+2. Open Actions > Publish Adashi demo > Run workflow and select main.
+3. After successful deployment, open the URL shown in the github-pages deployment.
+
+A private personal repository requires GitHub Pro for Pages. Keep the repository private; if Pages is unavailable on your plan, select another hosting service. A Pages demo may be publicly accessible even when the source repository is private. This demo contains fictional data only.
+
+Publishing requires enabling Pages once; the current GitHub connector cannot change that repository setting.
